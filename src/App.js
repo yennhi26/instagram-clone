@@ -1,36 +1,14 @@
 import * as React from "react";
-import "./App.css";
+import "./assets/App.css";
 import Post from "./components/Post";
-import { db, auth } from "./firebase";
-import { makeStyles } from "@material-ui/core/styles";
+import { db, auth } from "./utils/firebase";
 import Modal from "@material-ui/core/Modal";
 import { Button, Input } from "@material-ui/core";
 import ImageUpload from "./components/ImageUpload";
-import InstagramEmbed from "react-instagram-embed";
-
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: "absolute",
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
+import { useModalStyle } from "./hooks/use-modal-style";
 
 function App() {
+  const { getModalStyle, useStyles } = useModalStyle();
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
 
@@ -46,7 +24,6 @@ function App() {
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log("authUser", authUser);
         setUser(authUser);
         if (authUser.displayName) {
           // dont update username
@@ -89,6 +66,7 @@ function App() {
         });
       })
       .catch((error) => alert(error.message));
+    setOpen(false);
   };
 
   const signIn = (e) => {
@@ -191,31 +169,15 @@ function App() {
             user={user}
           />
         ))}
-        <InstagramEmbed
-          url="https://instagr.am/p/Zw9o4/"
-          // clientAccessToken="123|456"
-          maxWidth={320}
-          hideCaption={false}
-          containerTagName="div"
-          protocol=""
-          injectScript
-          onLoading={() => {}}
-          onSuccess={() => {}}
-          onAfterRender={() => {}}
-          onFailure={() => {}}
-        />
       </div>
 
-      {/*Header*/}
+      {/*Image upload*/}
 
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
       ) : (
         <h3>Sorry, you need to login to upload</h3>
       )}
-      {/*Posts*/}
-
-      {/*Posts*/}
     </div>
   );
 }

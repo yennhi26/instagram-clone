@@ -1,7 +1,7 @@
 import React from "react";
 import "./Post.css";
 import Avatar from "@material-ui/core/Avatar";
-import { db } from "../firebase";
+import { db } from "../utils/firebase";
 import firebase from "firebase";
 
 export default function Post({ postId, username, imageUrl, caption, user }) {
@@ -18,7 +18,6 @@ export default function Post({ postId, username, imageUrl, caption, user }) {
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
           setComments(snapshot.docs.map((doc) => doc.data()));
-          
         });
     }
     return () => {
@@ -27,17 +26,15 @@ export default function Post({ postId, username, imageUrl, caption, user }) {
   }, [postId]);
 
   const postComment = (e) => {
-    console.log("post");
     e.preventDefault();
     db.collection("posts").doc(postId).collection("comments").add({
       text: comment,
       username: user.displayName,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    
+
     setComment("");
   };
-  console.log("comments", comments);
 
   return (
     <div className="post">
