@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core";
 import { storage, db } from "../utils/firebase";
 import firebase from "firebase";
 import "./ImageUpload.css";
-import clsx from 'clsx';
+import clsx from "clsx";
 
 function ImageUpload({ username, className }) {
   const [caption, setCaption] = React.useState("");
@@ -55,19 +55,19 @@ function ImageUpload({ username, className }) {
   };
   return (
     <div className={clsx(className)}>
-        <div className={clsx('imageUpload')}>
-            <progress className="progress" value={progress} max="100" />
-            <input
-                type="text"
-                placeholder="Enter your caption"
-                onChange={(e) => setCaption(e.target.value)}
-                value={caption}
-            />
-            <input type="file" onChange={handleChange} />
-            <Button onClick={handleUpload} disabled={!image}>
-                Upload
-            </Button>
-        </div>
+      <div className={clsx("imageUpload")}>
+        <progress className="progress" value={progress} max="100" />
+        <input
+          type="text"
+          placeholder="Enter your caption"
+          onChange={(e) => setCaption(e.target.value)}
+          value={caption}
+        />
+        <input type="file" onChange={handleChange} />
+        <Button onClick={handleUpload} disabled={!image}>
+          Upload
+        </Button>
+      </div>
     </div>
   );
 }

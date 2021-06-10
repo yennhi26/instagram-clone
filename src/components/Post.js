@@ -47,7 +47,7 @@ export default function Post({ postId, username, imageUrl, caption, user }) {
         <h3>{username}</h3>
       </div>
 
-      <img className="post__image" src={imageUrl} />
+      <img alt="" className="post__image" src={imageUrl} />
 
       <h4 className="post__text">
         <b>{username}</b>: {caption}
