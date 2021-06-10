@@ -1,6 +1,5 @@
 .post {
   background-color: white;
-  max-width: 500px;
   border: 1px solid lightgray;
   margin-bottom: 45px;
 }
@@ -46,8 +45,14 @@
 .post__button {
   flex: 0;
   border: none;
-  color: #6082a3;
+  color: #23a8d7;
+  font-weight: bold;
   background-color: transparent;
   border-top: 1px solid lightgray;
   padding: 20px;
+  cursor: pointer;
+}
+
+.post__button:hover {
+  color: blue;
 }

@@ -12,6 +12,18 @@
 }
 
 .app__header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .app__header {
+    width: 75%;
+  }
+}
+
+.app__headerWrapper {
   position: sticky;
   top: 0;
   z-index: 1;
@@ -27,10 +39,53 @@
   flex-direction: column;
 }
 
-.app__posts {
+.app__bodyWrapper {
   padding: 20px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+}
+
+.app_postsWrapper {
+  width: 100%;
+  display: flex;
+}
+
+@media only screen and (min-width: 768px) {
+  .app_postsWrapper {
+    width: 75%;
+  }
+}
+
+.app_posts {
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .app_posts {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .app_uploadButton {
+    display: none;
+  }
+}
+
+.app__uploadSection {
+  display: none;
+}
+
+@media only screen and (min-width: 1024px) {
+  .app__uploadSection {
+    display: block;
+  }
+}
+
+.app__cancelButton {
+  width: 100%;
+}
+
+.app_flex {
+  display: flex;
 }

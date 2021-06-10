@@ -15,6 +15,7 @@ function App() {
   const [posts, setPosts] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [openSignin, setOpenSignin] = React.useState(false);
+  const [openUpload, setOpenUpload] = React.useState(false);
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -91,24 +92,27 @@ function App() {
             </center>
             <Input
               type="text"
-              placeholder="username"
+              placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
             <Input
               type="text"
-              placeholder="email"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
               type="password"
-              placeholder="password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <Button type="submit" onClick={signUp}>
               Sign Up
+            </Button>
+            <Button onClick={()=>setOpen(false)}>
+              Cancel
             </Button>
           </form>
         </div>
@@ -125,59 +129,86 @@ function App() {
             </center>
             <Input
               type="text"
-              placeholder="email"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
-              type="password"
-              placeholder="password"
+              type="Password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <Button type="submit" onClick={signIn}>
               Sign In
             </Button>
+            <Button onClick={()=>setOpenSignin(false)}>
+              Cancel
+            </Button>
           </form>
         </div>
       </Modal>
 
-      <div className="app__header">
-        <img
-          className="app__headerImage"
-          alt=""
-          src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-        />
-        {user ? (
-          <Button onClick={() => auth.signOut()}>Logout</Button>
+      <Modal open={openUpload} onClose={() => setOpenUpload(!openUpload)}>
+        <div style={modalStyle} className={classes.paper}>
+        {user?.displayName ? (
+            <ImageUpload username={user.displayName} />
         ) : (
-          <div className="app__loginContainer">
-            <Button onClick={() => setOpenSignin(true)}>Sign In</Button>
-            <Button onClick={() => setOpen(true)}>Sign Up</Button>
-          </div>
+            <h3>Sorry, you need to login to upload</h3>
         )}
+          <Button className='app__cancelButton' onClick={()=>setOpenUpload(false)}>Cancel</Button>
+        </div>
+      </Modal>
+
+      <div className="app__headerWrapper">
+        <div className='app__header'>
+          <img
+              className="app__headerImage"
+              alt=""
+              src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+          />
+          {user ? (
+              <div className='app_flex'>
+                <div className='app_uploadButton'>
+                  <Button  onClick={()=>setOpenUpload(!openUpload)}>Post</Button>
+                </div>
+                <Button onClick={() => auth.signOut()}>Logout</Button>
+              </div>
+          ) : (
+              <div className="app__loginContainer">
+                <Button onClick={() => setOpenSignin(true)}>Sign In</Button>
+                <Button onClick={() => setOpen(true)}>Sign Up</Button>
+              </div>
+          )}
+        </div>
       </div>
 
-      <div className="app__posts">
-        {posts.map(({ id, post }) => (
-          <Post
-            key={id}
-            postId={id}
-            username={post.username}
-            caption={post.caption}
-            imageUrl={post.imageUrl}
-            user={user}
-          />
-        ))}
+      <div className="app__bodyWrapper">
+        <div className='app_postsWrapper'>
+          <div className='app_posts'>
+            {posts.map(({ id, post }) => (
+                <Post
+                    key={id}
+                    postId={id}
+                    username={post.username}
+                    caption={post.caption}
+                    imageUrl={post.imageUrl}
+                    user={user}
+                />
+            ))}
+          </div>
+
+          {user?.displayName ? (
+              <ImageUpload username={user.displayName} className='app__uploadSection' />
+          ) : (
+              <h3 className='app__uploadSection'>Sorry, you need to login to upload</h3>
+          )}
+        </div>
       </div>
 
       {/*Image upload*/}
 
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ) : (
-        <h3>Sorry, you need to login to upload</h3>
-      )}
+
     </div>
   );
 }

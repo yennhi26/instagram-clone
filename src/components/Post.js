@@ -68,7 +68,7 @@ export default function Post({ postId, username, imageUrl, caption, user }) {
           <input
             className="post__input"
             type="text"
-            placeholder="Add a comment"
+            placeholder="Add a comment..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
@@ -82,7 +82,6 @@ export default function Post({ postId, username, imageUrl, caption, user }) {
           </button>
         </form>
       )}
-      {/* username + caption */}
     </div>
   );
 }
