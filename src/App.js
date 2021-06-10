@@ -207,14 +207,12 @@ function App() {
               className="app__uploadSection"
             />
           ) : (
-            <h3 className="app__uploadSection">
+            <h3 className="app__uploadSection warning">
               Sorry, you need to login to upload
             </h3>
           )}
         </div>
       </div>
-
-      {/*Image upload*/}
     </div>
   );
 }

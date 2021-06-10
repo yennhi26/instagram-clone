@@ -89,3 +89,7 @@
 .app_flex {
   display: flex;
 }
+
+.warning {
+  margin-left: 32px;
+}
