@@ -1,19 +1,18 @@
 import * as React from "react";
 import "./assets/App.css";
-import Post from "./components/Post";
-import { db, auth } from "./utils/firebase";
+import { auth } from "./utils/firebase";
 import Modal from "@material-ui/core/Modal";
 import { Button, Input } from "@material-ui/core";
 import ImageUpload from "./components/ImageUpload";
 import { useModalStyle } from "./hooks/use-modal-style";
 import { useAuthentication } from "./hooks/use-authentication";
+import Posts from './components/Posts'
 
 function App() {
   const { getModalStyle, useStyles } = useModalStyle();
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
 
-  const [posts, setPosts] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [openSignin, setOpenSignin] = React.useState(false);
   const [openUpload, setOpenUpload] = React.useState(false);
@@ -44,19 +43,6 @@ function App() {
       unsubscribe();
     };
   }, [user, username]);
-
-  React.useEffect(() => {
-    db.collection("posts")
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snapshot) => {
-        setPosts(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            post: doc.data(),
-          }))
-        );
-      });
-  }, []);
 
   const {signUp, signIn} = useAuthentication(email, password, username);
   const signUpFunc = (e) => {
@@ -180,18 +166,7 @@ function App() {
 
       <div className="app__bodyWrapper">
         <div className="app_postsWrapper">
-          <div className="app_posts">
-            {posts.map(({ id, post }) => (
-              <Post
-                key={id}
-                postId={id}
-                username={post.username}
-                caption={post.caption}
-                imageUrl={post.imageUrl}
-                user={user}
-              />
-            ))}
-          </div>
+          <Posts user={user} />
 
           {user?.displayName ? (
             <ImageUpload
