@@ -1,7 +1,7 @@
 .post {
   background-color: white;
   border: 1px solid lightgray;
-  margin-bottom: 45px;
+  margin-bottom: 3rem;
 }
 
 .post__image {
@@ -13,32 +13,32 @@
 
 .post__text {
   font-weight: normal;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .post__header {
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .post__avatar {
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 
 .post_commentBox {
   display: flex;
-  margin-top: 10px;
+  margin-top: 0.625rem;
 }
 
 .post__comments {
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .post__input {
   flex: 1;
   border: none;
-  padding: 20px;
+  padding: 1.25rem;
   border-top: 1px solid lightgray;
 }
 
@@ -49,7 +49,7 @@
   font-weight: bold;
   background-color: transparent;
   border-top: 1px solid lightgray;
-  padding: 20px;
+  padding: 1.25rem;
   cursor: pointer;
 }
 
