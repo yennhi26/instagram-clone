@@ -6,6 +6,7 @@ import Modal from "@material-ui/core/Modal";
 import { Button, Input } from "@material-ui/core";
 import ImageUpload from "./components/ImageUpload";
 import { useModalStyle } from "./hooks/use-modal-style";
+import { useAuthentication } from "./hooks/use-authentication";
 
 function App() {
   const { getModalStyle, useStyles } = useModalStyle();
@@ -57,27 +58,18 @@ function App() {
       });
   }, []);
 
-  const signUp = (e) => {
+  const {signUp, signIn} = useAuthentication(email, password, username);
+  const signUpFunc = (e) => {
     e.preventDefault();
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        return authUser.user.updateProfile({
-          displayName: username,
-        });
-      })
-      .catch((error) => alert(error.message));
+    signUp();
     setOpen(false);
-  };
+  }
 
-  const signIn = (e) => {
+  const signInFunc = (e) => {
     e.preventDefault();
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .catch((error) => alert(error.message));
-
+    signIn();
     setOpenSignin(false);
-  };
+  }
 
   return (
     <div className="app">
@@ -109,7 +101,7 @@ function App() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" onClick={signUp}>
+            <Button type="submit" onClick={signUpFunc}>
               Sign Up
             </Button>
             <Button onClick={() => setOpen(false)}>Cancel</Button>
@@ -139,7 +131,7 @@ function App() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" onClick={signIn}>
+            <Button type="submit" onClick={signInFunc}>
               Sign In
             </Button>
             <Button onClick={() => setOpenSignin(false)}>Cancel</Button>
