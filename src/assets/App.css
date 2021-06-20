@@ -48,6 +48,7 @@
 .app_postsWrapper {
   width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 
 @media only screen and (min-width: 768px) {
@@ -70,6 +71,7 @@
 @media only screen and (min-width: 1024px) {
   .app__uploadSection {
     display: block;
+    width: 30%;
   }
 }
 
