@@ -4,9 +4,10 @@ import { auth } from "./utils/firebase";
 import Modal from "@material-ui/core/Modal";
 import { Button, Input } from "@material-ui/core";
 import ImageUpload from "./components/ImageUpload";
+import Posts from "./components/Posts";
+import Logo from "./components/Logo";
 import { useModalStyle } from "./hooks/use-modal-style";
 import { useAuthentication } from "./hooks/use-authentication";
-import Posts from './components/Posts'
 
 function App() {
   const { getModalStyle, useStyles } = useModalStyle();
@@ -44,18 +45,18 @@ function App() {
     };
   }, [user, username]);
 
-  const {signUp, signIn} = useAuthentication(email, password, username);
+  const { signUp, signIn } = useAuthentication(email, password, username);
   const signUpFunc = (e) => {
     e.preventDefault();
     signUp();
     setOpen(false);
-  }
+  };
 
   const signInFunc = (e) => {
     e.preventDefault();
     signIn();
     setOpenSignin(false);
-  }
+  };
 
   return (
     <div className="app">
@@ -63,11 +64,7 @@ function App() {
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signup">
             <center>
-              <img
-                alt=""
-                className="app__headerImage"
-                src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-              />
+              <Logo />
             </center>
             <Input
               type="text"
@@ -99,11 +96,7 @@ function App() {
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signup">
             <center>
-              <img
-                alt=""
-                className="app__headerImage"
-                src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-              />
+              <Logo />
             </center>
             <Input
               type="text"
@@ -128,7 +121,10 @@ function App() {
       <Modal open={openUpload} onClose={() => setOpenUpload(!openUpload)}>
         <div style={modalStyle} className={classes.paper}>
           {user?.displayName ? (
-            <ImageUpload username={user.displayName} />
+            <ImageUpload
+              username={user.displayName}
+              innerClassName="customImageUpload"
+            />
           ) : (
             <h3>Sorry, you need to login to upload</h3>
           )}
@@ -143,11 +139,7 @@ function App() {
 
       <div className="app__headerWrapper">
         <div className="app__header">
-          <img
-            className="app__headerImage"
-            alt=""
-            src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-          />
+          <Logo />
           {user ? (
             <div className="app_flex">
               <div className="app_uploadButton">

@@ -55,8 +55,8 @@ export default function Post({ postId, username, imageUrl, caption, user }) {
 
       {comments.length > 0 && (
         <div className="post__comments">
-          {comments?.map((comment) => (
-            <p>
+          {comments?.map((comment, index) => (
+            <p key={index}>
               <b>{comment.username}</b>: {comment.text}
             </p>
           ))}
