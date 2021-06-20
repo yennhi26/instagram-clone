@@ -114,7 +114,7 @@ function ImageUpload({ username, className, innerClassName }) {
           className="textInput"
         />
         <progress className="progress" value={progress} max="100" />
-        {preview && <img src={preview} className="previewImage" />}
+        {preview && <img src={preview} className="previewImage" alt="" />}
       </div>
     </div>
   );
